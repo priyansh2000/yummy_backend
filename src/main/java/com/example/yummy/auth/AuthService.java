@@ -11,11 +11,12 @@ public class AuthService {
 
     private final CustomerRepo customerRepo;
     private final BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+    private final JwtUtil jwtUtil;
     public String login(String email, String password) {
         Customer customer = customerRepo.findByEmail(email);
 
         if (customer != null && passwordEncoder.matches(password, customer.getPassword())) {
-            return "User logged in successfully.";
+            return jwtUtil.generateToken(email);
         } else {
             return "Invalid email or password.";
         }
