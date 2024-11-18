@@ -21,10 +21,16 @@ public class ProductService {
     public Product updateProduct(Product product) {
         return productRepo.save(product);
     }
-    public void deleteProduct(Long id) {
-        productRepo.deleteById(id);
+    public boolean deleteProductById(Long id) {
+        if (productRepo.existsById(id)) {
+            productRepo.deleteById(id);
+            return true;
+        } else {
+            return false;
+        }
     }
     public List<Product> getTop2ProductsInRange() {
         return productRepo.findTop2ProductsInRange();
     }
 }
+
