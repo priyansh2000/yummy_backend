@@ -3,7 +3,8 @@ target/
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
-
+src/main/java/com/priyansh/yummy/config/WebConfig.java
+src/main/java/com/priyansh/yummy/interceptor/JwtInterceptor.java
 ### STS ###
 .apt_generated
 .classpath
