@@ -5,7 +5,7 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.stereotype.Component;
-
+import java.util.Base64;
 import javax.crypto.SecretKey;
 import java.util.Date;
 import java.util.HashMap;
@@ -13,13 +13,10 @@ import java.util.Map;
 
 @Component
 public class JwtUtil {
-    private final SecretKey SECRET_KEY;
+
+   private static final String SECRET = "cr666N7wIV+KJ2xOQpWtcfAekL4YXd9gbnJMs8SJ9sI=";
+    private final SecretKey SECRET_KEY = Keys.hmacShaKeyFor(Base64.getDecoder().decode(SECRET));
     private final long EXPIRATION_TIME = 1000 * 60 * 60; // 1 hour
-
-    public JwtUtil() {
-        this.SECRET_KEY = Keys.secretKeyFor(SignatureAlgorithm.HS256);
-    }
-
     public String generateToken(String email) {
         Map<String, Object> claims = new HashMap<>();
         return createToken(claims, email);
@@ -31,7 +28,7 @@ public class JwtUtil {
                 .setSubject(subject)
                 .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
-                .signWith(SECRET_KEY)
+                .signWith(SECRET_KEY, SignatureAlgorithm.HS256)
                 .compact();
     }
 
