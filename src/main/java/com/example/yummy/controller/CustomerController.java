@@ -2,6 +2,7 @@ package com.example.yummy.controller;
 
 import com.example.yummy.auth.JwtUtil;
 import com.example.yummy.dto.CustomerRequest;
+import com.example.yummy.dto.DeleteCustomerRequest;
 import com.example.yummy.service.CustomerService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -26,7 +27,7 @@ public class CustomerController {
     }
 
     @DeleteMapping("/delete")
-    public ResponseEntity<String> deleteCustomer(@RequestBody @Valid CustomerRequest request) {
-        return ResponseEntity.ok(customerService.deleteCustomerByEmail(request.email()));
+    public ResponseEntity<String> deleteCustomer(@RequestBody @Valid DeleteCustomerRequest request) {
+        return ResponseEntity.ok(customerService.deleteCustomerByEmail(request.getEmail()));
     }
 }
